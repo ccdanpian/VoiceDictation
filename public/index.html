@@ -41,51 +41,59 @@
             let times = null;
 
             // Retrieve authentication information from environment variables
-            const appId = process.env.XF_APP_ID;
-            const apiSecret = process.env.XF_API_SECRET;
-            const apiKey = process.env.XF_API_KEY;
+
+
+            fetch('/env')
+                .then(response => response.json())
+                .then(data => {
+                // 在这里使用数据
+                const appId = data.appId;
+                const apiSecret = data.apiSecret;
+                const apiKey = data.apiKey;
+                
 
 
 
-            // 实例化迅飞语音听写（流式版）WebAPI
-            const voice = new Voice({
+                // 实例化迅飞语音听写（流式版）WebAPI
+                const voice = new Voice({
 
-                // 服务接口认证信息 注：apiKey 和 apiSecret 的长度都差不多，请要填错哦，！
-                appId,
-                apiSecret, 
-                apiKey,
-                // 注：要获取以上3个参数，请到迅飞开放平台：https://www.xfyun.cn/services/voicedictation 【注：这是我的迅飞语音听写（流式版）每天服务量500（也就是调500次），如果你需求里大请购买服务量：https://www.xfyun.cn/services/voicedictation?target=price】
+                    // 服务接口认证信息 注：apiKey 和 apiSecret 的长度都差不多，请要填错哦，！
+                    appId,
+                    apiSecret, 
+                    apiKey,
+                    // 注：要获取以上3个参数，请到迅飞开放平台：https://www.xfyun.cn/services/voicedictation 【注：这是我的迅飞语音听写（流式版）每天服务量500（也就是调500次），如果你需求里大请购买服务量：https://www.xfyun.cn/services/voicedictation?target=price】
 
-                onWillStatusChange: function (oldStatus, newStatus) {
-                    //可以在这里进行页面中一些交互逻辑处理：注：倒计时（语音听写只有60s）,录音的动画，按钮交互等！
-                    fixedBox.style.display = 'block';
-                },
-                onTextChange: function (text) {
-                    //监听识别结果的变化
-                    voiceTxt.value = text;
-                    fixedTxt.innerText = text;
+                    onWillStatusChange: function (oldStatus, newStatus) {
+                        //可以在这里进行页面中一些交互逻辑处理：注：倒计时（语音听写只有60s）,录音的动画，按钮交互等！
+                        fixedBox.style.display = 'block';
+                    },
+                    onTextChange: function (text) {
+                        //监听识别结果的变化
+                        voiceTxt.value = text;
+                        fixedTxt.innerText = text;
 
-                    // 3秒钟内没有说话，就自动关闭
-                    if (text) {
-                        clearTimeout(times);
-                        times = setTimeout(() => {
-                            this.stop(); // voice.stop();
-                            fixedBox.style.display = 'none';
-                        }, 3000);
-                    };
-                }
+                        // 3秒钟内没有说话，就自动关闭
+                        if (text) {
+                            clearTimeout(times);
+                            times = setTimeout(() => {
+                                this.stop(); // voice.stop();
+                                fixedBox.style.display = 'none';
+                            }, 3000);
+                        };
+                    }
+                });
+
+                // 开始识别
+                startBtn['onclick'] = function () {
+                    voice.start();
+                };
+
+                // 关闭识别
+                closeBtn['onclick'] = function () {
+                    voice.stop();
+                    fixedBox.style.display = 'none';
+                };
             });
-
-            // 开始识别
-            startBtn['onclick'] = function () {
-                voice.start();
-            };
-
-            // 关闭识别
-            closeBtn['onclick'] = function () {
-                voice.stop();
-                fixedBox.style.display = 'none';
-            };
         };
     </script>
 </body>
