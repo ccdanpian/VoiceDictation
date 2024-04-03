@@ -1,6 +1,6 @@
 // aiService.js
 function processTranscription(transcription, responseHandler) {
-    const OPENROUTER_API_KEY = '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'; // 请替换为你的 API 密钥
+    const OPENROUTER_API_KEY = 'sk-or-v1-8388bdcd223262dec293b5ba0fa'; // 请替换为你的 API 密钥
     let accumulatedContent = '';
     let role_first = '';
     
