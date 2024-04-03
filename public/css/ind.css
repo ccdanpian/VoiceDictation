@@ -1,0 +1,107 @@
+        /* 全局样式 */
+        body, h1, input, button, textarea {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 页面 heading 样式 */
+        .h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #eaeaea;
+            margin-bottom: 20px;
+        }
+
+        /* 语音框区域 */
+        .voice-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        #voice-txt {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #start-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5cb85c;
+            color: white;
+            cursor: pointer;
+        }
+
+        #start-btn:hover {
+            background-color: #4cae4c;
+        }
+
+        /* 固定提示框样式 */
+        .fixed-box {
+            display: none;
+        }
+
+        .fixed-main {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background-color: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        #fixed-txt {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .fixed-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+        .fixed-icon img {
+            width: 50px;
+            height: auto;
+        }
+
+        /* AI响应区域样式 */
+        .ai-response-box {
+            padding: 0 20px 20px; /* 上 左/右 下 */
+        }
+
+        #ai-response {
+            width: calc(100% - 40px); /* 减去左右各20px的padding */
+            min-height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    
+    </script>
+</body>
+
+</html>
