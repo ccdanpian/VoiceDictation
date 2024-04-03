@@ -18,7 +18,10 @@ app.get('/env', (req, res) => {
   res.json({
     appId: process.env.XF_APP_ID,
     apiSecret: process.env.XF_API_SECRET,
-    apiKey: process.env.XF_API_KEY
+    apiKey: process.env.XF_API_KEY,
+    base_url: process.env.AI_BASE_URL,
+    api_key: process.env.AI_API_KEY,
+    model_name: process.env.AI_MODEL_NAME,
   });
 });
 
