@@ -33,17 +33,12 @@
             // 音频数据多线程
             this.init();
 
-            // 定义发送到AI的方法
-            this.sendToAi = this.sendToAi.bind(this);
 
-            // 确保 AI 脚本已加载
-            if (typeof processTranscription === 'function') {
-                this.sendToAi = function(transcription) {
-                    processTranscription(transcription, (content, role) => {
-                        // 可能需要更新用户界面的逻辑
-                        handleAiResponse(content, role);
-                    });
-                };
+            // 绑定方法
+            this.sendToAi = this.sendToAi.bind(this);
+            // 确保 AI 脚本已加载，并定义发送到AI的方法
+            if (typeof processTranscription !== 'function') {
+                console.error('AI function not available.');
             }
         };
 
