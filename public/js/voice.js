@@ -42,6 +42,11 @@
             }
         };
 
+        function getCurrentFormattedTime() {
+            const date = new Date();
+            return date.toLocaleTimeString();
+        }
+
         handleAiResponse(content, role) {
             // 更新UI的逻辑应该在这里实现
             // 例如，您可以在这里向页面元素添加内容
