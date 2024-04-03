@@ -32,7 +32,40 @@
             this.resultTextTemp = '';
             // 音频数据多线程
             this.init();
+
+            // 定义发送到AI的方法
+            this.sendToAi = this.sendToAi.bind(this);
+
+            // 确保 AI 脚本已加载
+            if (typeof processTranscription === 'function') {
+                this.sendToAi = function(transcription) {
+                    processTranscription(transcription, (content, role) => {
+                        // 可能需要更新用户界面的逻辑
+                        handleAiResponse(content, role);
+                    });
+                };
+            }
         };
+
+        handleAiResponse(content, role) {
+            // 更新UI的逻辑应该在这里实现
+            // 例如，您可以在这里向页面元素添加内容
+            const aiResponseElement = document.querySelector('#ai-response');
+            const formattedContent = role === 'ai' ? `AI-${getCurrentFormattedTime()}：${content}` : content;
+            aiResponseElement.value += `\n${formattedContent}`;
+            // 可能需要滚动到textarea的底部以显示最新的响应
+            aiResponseElement.scrollTop = aiResponseElement.scrollHeight;
+        }
+
+        sendToAi(transcription) {
+            // 确保 AI 脚本已加载，并发送转录内容给 AI 处理
+            if (typeof processTranscription === 'function') {
+                processTranscription(transcription, this.handleAiResponse.bind(this));
+            } else {
+                console.error('AI function not available.');
+            }
+        }
+        
         // WebSocket请求地址鉴权
         getWebSocketUrl() {
             return new Promise((resolve, reject) => {
@@ -307,6 +340,8 @@
             }
             if (jsonData.code === 0 && jsonData.data.status === 2) {
                 this.webSocket.close();
+                // 将转录内容发送给AI处理
+                this.sendToAi(this.resultText); // 发送转录内容给 AI
             }
             if (jsonData.code !== 0) {
                 this.webSocket.close();
